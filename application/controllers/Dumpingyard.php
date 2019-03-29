@@ -1,12 +1,12 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-class Shift extends CI_Controller{
+class Dumpingyard extends CI_Controller{
 	
     public function __construct() {
         parent::__construct();
         $this->load->library('session');
         $this->load->model('commondatamodel','commondatamodel',TRUE);
         $this->load->model('mastermodel','mastermodel',TRUE);
-        $this->load->model('Shift_model','shift',TRUE);
+       $this->load->model('Dumpingyard_model','dumping',TRUE);
     }
 
 	
@@ -14,8 +14,8 @@ class Shift extends CI_Controller{
 		$session = $this->session->userdata('user_data');
         if($this->session->userdata('user_data'))
         {
-            $page = 'dashboard/admin_dashboard/master/shift/shift_list';
-            $result['shiftList']=$this->commondatamodel->getAllDropdownData("shift_master");
+            $page = 'dashboard/admin_dashboard/master/dumping_yard/dumping_yard_list';
+            $result['dumpingyardList']=$this->dumping->getDumpingyardList();
             $header = "";
             createbody_method($result,$page,$header,$session);
 
@@ -25,8 +25,7 @@ class Shift extends CI_Controller{
     }
     
     
-
-    public function addShift(){
+    public function addYard(){
         
         $session = $this->session->userdata('user_data');
         if($this->session->userdata('user_data'))
@@ -36,28 +35,38 @@ class Shift extends CI_Controller{
 				$result['mode'] = "ADD";
 				$result['btnText'] = "Save";
 				$result['btnTextLoader'] = "Saving...";
-                $shiftID = 0;
-                $result['shiftID'] = $shiftID;
-				$result['shiftEditdata'] = [];
+                $yardID = 0;
+                $result['yardID'] = $yardID;
+				$result['yardEditdata'] = [];
 				
+				
+				//getAllRecordWhereOrderBy($table,$where,$orderby)
+				
+				
+			
 			}
 			else
 			{
 				$result['mode'] = "EDIT";
 				$result['btnText'] = "Update";
 				$result['btnTextLoader'] = "Updating...";
-                $shiftID = $this->uri->segment(3);
-                $result['shiftID'] = $shiftID;
-                $whereAry = [
-                    'shift_master.shift_id' => $shiftID
+                $yardID = $this->uri->segment(3);
+                $result['yardID'] = $yardID;
+                
+				$whereAry = [
+                    'dumping_yard_master.dumping_yard_id' => $yardID
                 ];
-				$result['shiftEditdata'] = $this->commondatamodel->getSingleRowByWhereCls('shift_master',$whereAry); 
 
+				// getSingleRowByWhereCls(tablename,where params)
+				 $result['yardEditdata'] = $this->commondatamodel->getSingleRowByWhereCls('dumping_yard_master',$whereAry); 
+				//	pre($result['yardEditdata']);exit;
+				
 			}
 
-          
+                 $result['projectList'] = $this->commondatamodel->getAllDropdownData("project_master");
+
 			$header = "";
-			$page = 'dashboard/admin_dashboard/master/shift/add_shift';
+			$page = 'dashboard/admin_dashboard/master/dumping_yard/dumping_yard_add_edit.php';
 			createbody_method($result, $page, $header,$session);
 		}
 		else
@@ -69,7 +78,8 @@ class Shift extends CI_Controller{
     }
 
 
-    public function shift_action() {
+	
+    public function dumpingyard_action() {
 
         $session = $this->session->userdata('user_data');
 		if($this->session->userdata('user_data'))
@@ -78,29 +88,40 @@ class Shift extends CI_Controller{
 			$formData = $this->input->post('formDatas');
 			parse_str($formData, $dataArry);
 			
-			$vehicletypeID = trim(htmlspecialchars($dataArry['vehicletypeID']));
+
+			
+		
+			$yardID = trim(htmlspecialchars($dataArry['yardID']));
 			$mode = trim(htmlspecialchars($dataArry['mode']));
-			$vehicletype = trim(htmlspecialchars($dataArry['vehicletype']));
-			
-			
+
+            $yardname = trim(htmlspecialchars($dataArry['yardname']));
+            $project = trim(htmlspecialchars($dataArry['project']));
+            
+
 			
 			
 
 
-			if($vehicletype!="")
+			if($yardname!="" && $project!="")
 			{
 	
 				
 				
-				if($vehicletypeID>0 && $mode=="EDIT")
+				if($yardID>0 && $mode=="EDIT")
 				{
 					/*  EDIT MODE
 					 *	-----------------
 					*/
 
-					
+					$upd_where = array('dumping_yard_master.dumping_yard_id' =>$yardID);
 
-					$update = $this->vehicletype->updateVehicletype($dataArry,$session);
+                    $upd_array = array(
+                        'dumping_yard_name' => $yardname,
+                        'project_id' => $project
+                       
+                     );
+
+                        $update = $this->commondatamodel->updateSingleTableData('dumping_yard_master',$upd_array,$upd_where);
 					
 					
 					if($update)
@@ -128,8 +149,13 @@ class Shift extends CI_Controller{
 					 *	-----------------
 					*/
 
+                    $insert_array = array(
+                                            'dumping_yard_name' => $yardname,
+                                            'project_id' => $project,
+                                            'is_active' => 'Y'
+                                         );
 			
-					$insertData = $this->vehicletype->insertIntoVehicletype($dataArry,$session);
+					$insertData = $this->commondatamodel->insertSingleTableData('dumping_yard_master',$insert_array);
 					
 
 					if($insertData)
@@ -173,11 +199,12 @@ class Shift extends CI_Controller{
 		}
 		else
 		{
-			redirect('login','refresh');
+			redirect('adminpanel','refresh');
 		}
-	}
-	/*
-	public function setStatus(){
+	} 
+	
+
+	public function setYardStatus(){
 		$session = $this->session->userdata('user_data');
 		if($this->session->userdata('user_data'))
 		{
@@ -189,12 +216,12 @@ class Shift extends CI_Controller{
 				);
 				
 			$where = array(
-				"mobile_master.mobile_id" => $updID
+				"dumping_yard_master.dumping_yard_id" => $updID
 				);
 			
 			
 		
-			$update = $this->commondatamodel->updateSingleTableData('mobile_master',$update_array,$where);
+			$update = $this->commondatamodel->updateSingleTableData('dumping_yard_master',$update_array,$where);
 			if($update)
 			{
 				$json_response = array(
@@ -218,12 +245,8 @@ class Shift extends CI_Controller{
 		}
 		else
 		{
-			redirect('administratorpanel','refresh');
+			redirect('login','refresh');
 		}
 	}
-
-
-*/
-
  
-}
+}// end of class

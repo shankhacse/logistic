@@ -66,7 +66,9 @@ class Driver extends CI_Controller{
 				
 			}
 
-            $result['vehicleTypeList'] = $this->commondatamodel->getAllDropdownData("vehicle_type");
+			$result['vehicleTypeList'] = $this->commondatamodel->getAllDropdownData("vehicle_type");
+			$result['projectList'] = $this->commondatamodel->getAllDropdownData("project_master");
+          //  pre($result['projectList']);
 
 			$header = "";
 			$page = 'dashboard/admin_dashboard/master/driver/add_driver';

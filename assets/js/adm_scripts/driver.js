@@ -205,6 +205,7 @@ function validateDriver()
     var drivername = $("#drivername").val();
     var vehicleType = $("#vehicleType").val();
     var driverpassword = $("#driverpassword").val();
+    var workingproject = $("#workingproject").val();
     
 
     $("#error_msg").text("").css("dispaly", "none").removeClass("form_error");
@@ -224,6 +225,16 @@ function validateDriver()
         $("#drivername").focus();
         $("#error_msg")
         .text("Error : Enter Driver Name")
+        .addClass("form_error")
+        .css("display", "block");
+        return false;
+    }
+
+    if(workingproject=="0")
+    {
+        $("#workingproject").focus();
+        $("#error_msg")
+        .text("Error : Select Project")
         .addClass("form_error")
         .css("display", "block");
         return false;

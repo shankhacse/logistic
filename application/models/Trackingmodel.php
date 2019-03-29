@@ -18,6 +18,7 @@ class Trackingmodel extends CI_Model{
 
                         ->where('DATE_FORMAT(`driver_tracking_history`.`session_satrt_time`,"%Y-%m-%d") >= ', $fromDt)
                         ->where('DATE_FORMAT(`driver_tracking_history`.`session_satrt_time`,"%Y-%m-%d") <= ', $toDt)
+                        ->order_by("driver_tracking_history.session_satrt_time", "desc")
                         ->get();
                     //   echo $this->db->last_query();
         if($query->num_rows()> 0)
@@ -58,6 +59,7 @@ class Trackingmodel extends CI_Model{
                         ->where($wherereproject)
                         ->where('DATE_FORMAT(`driver_tracking_history`.`session_satrt_time`,"%Y-%m-%d") >= ', $fromDt)
                         ->where('DATE_FORMAT(`driver_tracking_history`.`session_satrt_time`,"%Y-%m-%d") <= ', $toDt)
+                        ->order_by("driver_tracking_history.session_satrt_time", "desc")
                         ->get();
                     //   echo $this->db->last_query();
         if($query->num_rows()> 0)
@@ -124,7 +126,8 @@ class Trackingmodel extends CI_Model{
 
     public function getSiftCode($timeHr){
         $shiftCode = "";
-        if($timeHr>=1 AND $timeHr<6){
+         // change 1 to 0 hour in condition 29.03.2019 by shankha
+        if($timeHr>=0 AND $timeHr<6){
             $shiftCode = "C";
         }
         if($timeHr>=6 AND $timeHr<14){
@@ -176,9 +179,10 @@ class Trackingmodel extends CI_Model{
             'excavator_assign.equipment_id' =>$vehicle_equipment_id,
             'excavator_assign.is_deleted' =>'N'
          );
-        $query=$this->db->select('*,driver_master.driver_name')
+        $query=$this->db->select('*,driver_master.driver_name,supervisor_master.name AS supervisor_name')
                          ->from('excavator_assign')
                          ->join('driver_master','driver_master.driver_code=excavator_assign.driver_code','INNER')
+                         ->join('supervisor_master','supervisor_master.supervisor_id=excavator_assign.supervisor_id','INNER')
                          ->where($where)
                          ->get();
                        // echo $this->db->last_query();

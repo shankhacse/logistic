@@ -1,5 +1,7 @@
 $(document ).ready(function() {
     var basepath = $("#basepath").val();
+
+    $('.timepickers').pickatime();
    
     $(document).on('submit','#vehicleForm',function(e){
 		e.preventDefault();

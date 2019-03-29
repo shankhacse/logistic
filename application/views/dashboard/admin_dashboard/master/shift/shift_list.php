@@ -20,7 +20,7 @@ vertical-align: inherit;
 		    <div class="box">
             <div class="box-header">
               <h3 class="box-title">Shift List</h3>&nbsp;
-             <!-- <a href="<?php echo base_url();?>shift/addShift" class="link_tab"><span class="glyphicon glyphicon-plus"></span> ADD</a> -->
+             <!-- <a href="<?php echo base_url();?>shift/addShift" class="link_tab"><span class="glyphicon glyphicon-plus"></span> ADD</a>  -->
             </div>
             <!-- /.box-header -->
             <div class="box-body">

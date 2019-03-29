@@ -4,12 +4,12 @@ class Shift_model extends CI_Model{
 	
 	
     public function getSiftDate($satrt_time){
-      date_default_timezone_set('Asia/Kolkata');
+
         $shiftCode = "";
         $shiftDate = NULL;
         $timeHr = date("H",strtotime($satrt_time));
-
-        if($timeHr>=1 AND $timeHr<6){
+        // change 1 to 0 hour in condition 29.03.2019 by shankha
+        if($timeHr>=0 AND $timeHr<6){
            // $shiftCode = "C";
            $shiftDate = date("Y-m-d",strtotime($satrt_time." -1 day"));
         }

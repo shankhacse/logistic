@@ -394,7 +394,7 @@ class Master extends CI_Controller{
             
             
         
-            $update = $this->commondatamodel->updateSingleTableData('supervisor_master',$update_array,$where);
+           $update = $this->commondatamodel->updateSingleTableData('supervisor_master',$update_array,$where);
             if($update)
             {
                 $json_response = array(

@@ -47,7 +47,7 @@ vertical-align: inherit;
               	<?php 
 				          
                       $i = 1;
-                    //   pre($bodycontent['mobileList']);
+                       //pre($bodycontent['supervisorList']);
               		foreach ($bodycontent['supervisorList'] as $value) {   
                     
                     $status = "";

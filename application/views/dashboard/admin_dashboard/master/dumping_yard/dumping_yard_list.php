@@ -1,4 +1,4 @@
-<script src="<?php echo base_url(); ?>assets/js/adm_scripts/project.js"></script>  
+<script src="<?php echo base_url(); ?>assets/js/adm_scripts/dumpingyard.js"></script>  
 <style>
 #contralist td{
 vertical-align: inherit;
@@ -11,7 +11,7 @@ vertical-align: inherit;
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?php echo base_url(); ?>dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Project List</li>
+        <li class="active">Dumping Yard List</li>
       </ol>
     </section>
 
@@ -20,8 +20,8 @@ vertical-align: inherit;
 
 		    <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Project List</h3>&nbsp;
-              <a href="<?php echo base_url();?>project/addProject" class="link_tab"><span class="glyphicon glyphicon-plus"></span> ADD</a>
+              <h3 class="box-title">Dumping Yard List</h3>&nbsp;
+              <a href="<?php echo base_url();?>dumpingyard/addYard" class="link_tab"><span class="glyphicon glyphicon-plus"></span> ADD</a>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -31,9 +31,8 @@ vertical-align: inherit;
                 <tr>
                   <th style="width:5%;">Sl</th>
                   -<th style="width:10%;">Action</th>
-                  <th>Name</th>
-                  <th>Code</th>
-                  <th>Location</th>
+                  <th>Yard Name</th>
+                  <th>Project</th>
                   <th>Status</th> 
                 </tr>
                 </thead>
@@ -42,16 +41,16 @@ vertical-align: inherit;
               	<?php 
 				          
                       $i = 1;
-                      foreach ($bodycontent['projectList'] as $value) {  
+                      foreach ($bodycontent['dumpingyardList'] as $value) {  
                         $status = "";
                         if($value->is_active=="Y")
                         {
-                          $status = '<div class="status_dv "><span class="label label-success status_tag projectstatus" data-setstatus="N" data-projectid="'.$value->project_id.'"><span class="glyphicon glyphicon-ok"></span> Active</span></div>';
+                          $status = '<div class="status_dv "><span class="label label-success status_tag yardstatus" data-setstatus="N" data-yardid="'.$value->dumping_yard_id.'"><span class="glyphicon glyphicon-ok"></span> Active</span></div>';
                         }
                         else
                         {
-                          $status = '<div class="status_dv"><span class="label label-danger status_tag projectstatus" data-setstatus="Y" 
-                          data-projectid="'.$value->project_id.'"><span class="glyphicon glyphicon-remove"></span> Inactive</span></div>';
+                          $status = '<div class="status_dv"><span class="label label-danger status_tag yardstatus" data-setstatus="Y" 
+                          data-yardid="'.$value->dumping_yard_id.'"><span class="glyphicon glyphicon-remove"></span> Inactive</span></div>';
                         } 
                         
                        
@@ -60,13 +59,12 @@ vertical-align: inherit;
 					          <tr>
 						            <td><?php echo $i; ?></td>
                        <td>
-                          <a href="<?php echo base_url(); ?>project/addProject/<?php echo $value->project_id; ?>" class="btn btn-primary btn-xs" data-title="Edit">
+                          <a href="<?php echo base_url(); ?>dumpingyard/addYard/<?php echo $value->dumping_yard_id; ?>" class="btn btn-primary btn-xs" data-title="Edit">
                             <span class="glyphicon glyphicon-pencil"></span>
                           </a>
                         </td>
-                        <td><?php echo $value->project_name; ?></td>                                              
-                        <td><?php echo $value->project_nickname; ?></td>                                              
-                        <td><?php echo $value->location; ?></td> 
+                        <td><?php echo $value->dumping_yard_name; ?></td>                                                                                         
+                        <td><?php echo $value->project_nickname; ?></td> 
                         <td><?php echo $status; ?></td>                                             
                        
                     </tr>              			

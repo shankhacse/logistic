@@ -31,25 +31,31 @@ class Logistic_model extends CI_Model{
 		date_default_timezone_set('Asia/Kolkata');
 		
 		$mobileID = $request->mobileid;
-		$DriverCode = $request->drivercode;
+
 		
 		$localdatasize = count($request->data);
 		$localDataArray = $request->data;
 		
 		$update_array = [];
 		$insert_array = [];
+
+		// foreach ($request->data as $value) {
+		// 	 $DriverCode=$value->driver_empl_code;
+		// }
+
+		
 		
 		for($i=0;$i<$localdatasize;$i++) {
 			
 			
-			$isPreviousData = $this->checkIsDataExist($mobileID,$DriverCode,$localDataArray[$i]->track_history_id);
+			$isPreviousData = $this->checkIsDataExist($mobileID,$localDataArray[$i]->driver_empl_code,$localDataArray[$i]->track_history_id);
 			if($isPreviousData) {
 				//Update Existing Data
 				
 				$upd_where = [
 					"driver_tracking_history.local_autoinc_id" => $localDataArray[$i]->track_history_id,
 					"driver_tracking_history.mobile_id" => $mobileID,
-					"driver_tracking_history.driver_empl_code" => $DriverCode
+					"driver_tracking_history.driver_empl_code" => $localDataArray[$i]->driver_empl_code
 				];
 				
 				$logout_time = NULL;
@@ -227,7 +233,9 @@ class Logistic_model extends CI_Model{
 		date_default_timezone_set('Asia/Kolkata');
 		
 	    $mobileID = $request->mobileid;
-		$supervisorID = $request->supervisorid;
+		
+
+	
 		
 		$localdatasize = count($request->data);
 		$localDataArray = $request->data;
@@ -242,14 +250,14 @@ class Logistic_model extends CI_Model{
 		for($i=0;$i<$localdatasize;$i++) {
 			
 			
-			$isPreviousData = $this->checkIsDataExistExcavatorAssign($mobileID,$supervisorID,$localDataArray[$i]->excavator_assign_id);
+			$isPreviousData = $this->checkIsDataExistExcavatorAssign($mobileID,$localDataArray[$i]->supervisor_id,$localDataArray[$i]->excavator_assign_id);
 			if($isPreviousData) {
 				//Update Existing Data
 				//echo "<br>Update<br>";
 				$upd_where = [
 					"excavator_assign.local_autoinc_id" => $localDataArray[$i]->excavator_assign_id,
 					"excavator_assign.mobile_id" => $mobileID,
-					"excavator_assign.supervisor_id" => $supervisorID
+					"excavator_assign.supervisor_id" => $localDataArray[$i]->supervisor_id
 				];
 				
 				

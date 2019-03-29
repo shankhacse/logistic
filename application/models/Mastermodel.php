@@ -117,7 +117,7 @@ class Mastermodel extends CI_Model{
     public function getSupervisorList()
     {
         $data = array();
-        $query=$this->db->select('*')
+        $query=$this->db->select('supervisor_master.*,project_master.project_nickname,project_master.project_name')
                         ->from('supervisor_master')
                         ->join('project_master','project_master.project_id=supervisor_master.project_id','INNER')
                         ->order_by('project_master.project_name')

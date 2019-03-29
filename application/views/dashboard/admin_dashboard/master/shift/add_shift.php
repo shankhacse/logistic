@@ -7,7 +7,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?php echo base_url(); ?>dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Vehicle Type <?php echo $bodycontent['mode']; ?></li>
+        <li class="active">Shift <?php echo $bodycontent['mode']; ?></li>
       </ol>
     </section>
 
@@ -18,8 +18,8 @@
       <div class="col-md-12">
         <div class="box box-primary formBlock">
               <div class="box-header with-border">
-                <h3 class="box-title">Vehicle Type </h3>
-                 <a href="<?php echo base_url();?>vehicletype" class="link_tab"><span class="glyphicon glyphicon-list"></span> List</a>
+                <h3 class="box-title">Shift </h3>
+                 <a href="<?php echo base_url();?>shift" class="link_tab"><span class="glyphicon glyphicon-list"></span> List</a>
               </div>
               <!-- /.box-header -->
               <!-- form start -->
@@ -32,14 +32,45 @@
                   <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <input type="hidden" name="vehicletypeID" id="vehicletypeID" value="<?php echo $bodycontent['vehicletypeID']; ?>" />
+                          <input type="hidden" name="shiftID" id="shiftID" value="<?php echo $bodycontent['shiftID']; ?>" />
                           <input type="hidden" name="mode" id="mode" value="<?php echo $bodycontent['mode']; ?>" />
-                          <label for="equipmentid">Type</label>
-                          <input type="text" class="form-control forminputs" id="vehicletype" name="vehicletype" placeholder="" autocomplete="off" value="<?php if($bodycontent['mode']=="EDIT"){echo $bodycontent['vehicletypeEditdata']->vehicle_type;}?>" />
+                          <label for="equipmentid">Shift Code</label>
+                          <input type="text" class="form-control forminputs" id="shiftcode" name="shiftcode" placeholder="" autocomplete="off" value="<?php if($bodycontent['mode']=="EDIT"){echo $bodycontent['vehicletypeEditdata']->vehicle_type;}?>" />
                         </div>
                       </div> <!-- end of col-md-12 -->
                       
                   </div>
+
+                  <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="equipmentid">Start Time</label>
+                          <input type="text" class="form-control forminputs" id="starttime" name="starttime" placeholder="" autocomplete="off" value="<?php if($bodycontent['mode']=="EDIT"){echo $bodycontent['vehicletypeEditdata']->vehicle_type;}?>" />
+                        </div>
+                      </div> <!-- end of col-md-6 -->
+
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="equipmentid">End Time</label>
+                          <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input class="form-control pull-right timepicker" id="eventtime" name="eventtime" type="text" value="">
+                  </div>
+                        </div>
+                      </div> <!-- end of col-md-6 -->
+                      
+                  </div>
+
+
+                  <!-- <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input class="form-control pull-right timepickers" id="eventtime" name="eventtime" type="text" value="">
+                  </div> -->
+                   
 
                   <p id="error_msg" class="form_error"></p>
 

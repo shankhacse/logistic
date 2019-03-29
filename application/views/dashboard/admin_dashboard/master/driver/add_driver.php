@@ -47,12 +47,28 @@
                             <input type="text" class="form-control forminputs " id="drivername" name="drivername" placeholder="" autocomplete="off" value="<?php if($bodycontent['mode']=="EDIT"){echo $bodycontent['driverEditdata']->driver_name;}?>" >
                           </div>
                       </div><!-- end of col-md-6 -->
+
                       <div class="col-md-6">
                           <div class="form-group">
                             <label for="workingproject">Working Project</label>
-                            <input type="text" class="form-control forminputs " id="workingproject" name="workingproject" placeholder="" autocomplete="off" value="<?php if($bodycontent['mode']=="EDIT"){echo $bodycontent['driverEditdata']->working_project_id;}?>"  >
+                            <!-- <input type="text" class="form-control forminputs " id="workingproject" name="workingproject" placeholder="" autocomplete="off" value="<?php if($bodycontent['mode']=="EDIT"){echo $bodycontent['driverEditdata']->working_project_id;}?>"  > -->
+                            <select id="workingproject" name="workingproject" class="form-control"  >
+                            <option value="0">Select</option>
+                            
+                            <?php 
+                                if($bodycontent['projectList'])
+                                {
+                                  foreach($bodycontent['projectList'] as $projectlist)
+                                  { ?>
+                                      <option value="<?php echo $projectlist->project_nickname; ?>" <?php if(($bodycontent['mode']=="EDIT") && $bodycontent['driverEditdata']->working_project_id==$projectlist->project_nickname){echo "selected";}else{echo "";} ?> ><?php echo $projectlist->project_nickname; ?></option>
+                                <?php   }
+                                }
+                              ?>
+                          </select>
+                         
                           </div>
                       </div><!-- end of col-md-6 -->
+
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="vehicleType">Type</label> 

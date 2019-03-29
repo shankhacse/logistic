@@ -27,6 +27,7 @@ vertical-align: inherit;
                   <th>Vehicle No.</th> 
                   <th>Excv. No.</th> 
                   <th>Excv. Op.</th> 
+                  <th>Supervisor</th> 
                   <th>Counter</th> 
                   <th>Start Time</th> 
                   <th>End Time</th> 
@@ -82,6 +83,28 @@ vertical-align: inherit;
                                         }
 
                                         $countOper++;
+
+                                        $supervisor_name=$excavatorOperator->supervisor_name;
+                                     
+                                      }
+                                  }
+                        ?>
+                        
+                        </td>
+                        <td>
+                        <?php 
+                                  if($value['excavatorOperator']){
+                                    $countSup=0;
+                                      foreach ($value['excavatorOperator'] as  $excavatorOperator) {
+                                        if($countSup==0){
+                                          echo "".$excavatorOperator->supervisor_name;
+                                        }else{
+                                          echo ",".$excavatorOperator->supervisor_name;
+                                        }
+
+                                        $countSup++;
+
+                                      
                                      
                                       }
                                   }

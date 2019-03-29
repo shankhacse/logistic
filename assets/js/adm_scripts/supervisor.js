@@ -60,7 +60,7 @@ $( document ).ready(function() {
 
     
     $(document).on("click", ".superstatus", function() {
-          
+       
 		var uid = $(this).data("supervisorid");
         var status = $(this).data("setstatus");
         var url = basepath + 'master/setSupervisorStatus';
