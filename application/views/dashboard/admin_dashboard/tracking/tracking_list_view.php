@@ -32,6 +32,7 @@ vertical-align: inherit;
                   <th>Start Time</th> 
                   <th>End Time</th> 
                   <th>Carrying</th> 
+                  <th>Dum. Yard</th> 
                  
                 </tr>
                 </thead>
@@ -121,6 +122,7 @@ vertical-align: inherit;
 
                         ?></td>
                         <td><?php echo $value['trackingDetailRows']->material_type;?></td>
+                        <td><?php echo $value['trackingDetailRows']->dumping_yard_name;?></td>
 				    </tr>              			
               	<?php
                     $i++;

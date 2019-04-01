@@ -15,7 +15,7 @@ class Trackingmodel extends CI_Model{
                         ->join('driver_master','driver_tracking_history.driver_empl_code=driver_master.driver_code','INNER')
                         ->join('vehicle_master','driver_tracking_history.mobile_id=vehicle_master.mobile_uniq_id','INNER')
 						->join('project_master','vehicle_master.project_id=project_master.project_id','INNER')
-
+                        ->join('dumping_yard_master','dumping_yard_master.dumping_yard_id=driver_tracking_history.dumping_yard_id','LEFT')
                         ->where('DATE_FORMAT(`driver_tracking_history`.`session_satrt_time`,"%Y-%m-%d") >= ', $fromDt)
                         ->where('DATE_FORMAT(`driver_tracking_history`.`session_satrt_time`,"%Y-%m-%d") <= ', $toDt)
                         ->order_by("driver_tracking_history.session_satrt_time", "desc")
@@ -55,7 +55,8 @@ class Trackingmodel extends CI_Model{
                         ->from('driver_tracking_history')
                         ->join('driver_master','driver_tracking_history.driver_empl_code=driver_master.driver_code','INNER')
                         ->join('vehicle_master','driver_tracking_history.mobile_id=vehicle_master.mobile_uniq_id','INNER')
-						->join('project_master','vehicle_master.project_id=project_master.project_id','INNER')
+                        ->join('project_master','vehicle_master.project_id=project_master.project_id','INNER')
+                        ->join('dumping_yard_master','dumping_yard_master.dumping_yard_id=driver_tracking_history.dumping_yard_id','LEFT')
                         ->where($wherereproject)
                         ->where('DATE_FORMAT(`driver_tracking_history`.`session_satrt_time`,"%Y-%m-%d") >= ', $fromDt)
                         ->where('DATE_FORMAT(`driver_tracking_history`.`session_satrt_time`,"%Y-%m-%d") <= ', $toDt)

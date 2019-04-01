@@ -35,6 +35,7 @@ class Logistic_model extends CI_Model{
 		
 		$localdatasize = count($request->data);
 		$localDataArray = $request->data;
+	
 		
 		$update_array = [];
 		$insert_array = [];
@@ -108,7 +109,8 @@ class Logistic_model extends CI_Model{
 					"local_autoinc_id" => $localDataArray[$i]->track_history_id,
 					"session_end_time" => $trip_end_time,
 					"vehicle_equipment_id" => $localDataArray[$i]->vehicle_equipment_id,
-					"shift_date" => $shift_date // added on 11.03.2019
+					"shift_date" => $shift_date, // added on 11.03.2019
+					"dumping_yard_id" => $localDataArray[$i]->dumping_yard_id // added on 30.03.2019
 				];
 				
 				$this->db->insert('driver_tracking_history', $insert_array);
